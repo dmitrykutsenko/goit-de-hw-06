@@ -181,6 +181,22 @@ kafka_output = result_df.select(
 # Write to Kafka
 # -------------------
 
+# -------------------
+# Debug output to console
+# -------------------
+
+debug_query = (
+    result_df.writeStream
+    .outputMode("append")
+    .format("console")
+    .option("truncate", False)
+    .start()
+)
+
+# -------------------
+# Write alerts to Kafka
+# -------------------
+
 query = (
     kafka_output.writeStream
     .format("kafka")
